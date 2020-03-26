@@ -3,7 +3,11 @@ package com.text.recognition.tess4j.controller;
 import com.text.recognition.tess4j.service.ITess4jService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * @author intasect
@@ -19,8 +23,15 @@ public class Tess4jController {
     }
 
     @PostMapping("/recognition")
-    public String getTess4jRecognition() {
-        return tess4jService.getTess4jRecognition();
+    public String getTess4jRecognition(@RequestParam("file") MultipartFile multipartFiles) {
+        if (multipartFiles != null) {
+            try {
+                return tess4jService.getTess4jRecognition(multipartFiles.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
 }
