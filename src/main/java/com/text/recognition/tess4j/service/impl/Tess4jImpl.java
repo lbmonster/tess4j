@@ -29,11 +29,15 @@ public class Tess4jImpl implements ITess4jService {
         // 也可以直接通过jvm启动参数设置此环境变量
         System.setProperty("aip.log4j.conf", "path/to/your/log4j.properties");
         HashMap<String, String> options = new HashMap<>(10);
+//        options.put("detect_direction", "true");
+//        options.put("detect_language", "true");
+        options.put("recognize_granularity", "big");
+        options.put("probability", "true");
+        options.put("accuracy", "normal");
         options.put("detect_direction", "true");
-        options.put("detect_language", "true");
         // 调用接口
 //        String path = "E:\\2012\\888.jpg";
-        JSONObject res = client.webImage(fileBytes, options);
+        JSONObject res = client.receipt(fileBytes, options);
         StringBuilder stringBuffer = new StringBuilder();
         Object result = res.get("words_result");
         if (result instanceof JSONArray) {

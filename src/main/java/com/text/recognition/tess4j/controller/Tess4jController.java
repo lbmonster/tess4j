@@ -1,10 +1,9 @@
 package com.text.recognition.tess4j.controller;
 
 import com.text.recognition.tess4j.service.ITess4jService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -14,6 +13,8 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping("/tess4j")
+@Api("图片识别")
+@CrossOrigin
 public class Tess4jController {
 
     private final ITess4jService tess4jService;
@@ -23,6 +24,7 @@ public class Tess4jController {
     }
 
     @PostMapping("/recognition")
+    @ApiOperation(value = "发票识别",tags = "发票识别",notes = "发票识别")
     public String getTess4jRecognition(@RequestParam("file") MultipartFile multipartFiles) {
         if (multipartFiles != null) {
             try {
@@ -33,5 +35,4 @@ public class Tess4jController {
         }
         return null;
     }
-
 }
